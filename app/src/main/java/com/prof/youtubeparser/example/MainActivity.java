@@ -20,6 +20,7 @@ package com.prof.youtubeparser.example;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -53,9 +54,10 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private int totalElement;
     private String nextToken;
-    private final String CHANNEL_ID = "UCVHFbqXqoYvEWM1Ddxl0QDg";
+    private final String CHANNEL_ID = "UC_Htgf6HhijYNPbUck_GD-A";
     //TODO: delete
-    private final String API_KEY = "";
+    private final String API_KEY = "AIzaSyCTi9zsCNvdAJzsohhvXPJf_zA2Rep4NO4";
+    private ArrayList<Video> youtubeVideoModelArrayList ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,13 +120,26 @@ public class MainActivity extends AppCompatActivity {
                 int lastVisible = layoutManager.findLastVisibleItemPosition();
 
                 if (lastVisible == totalElement - 1)
-                    fab.setVisibility(View.VISIBLE);
+                    fab.show();
                 else
-                    fab.setVisibility(View.GONE);
+                    fab.hide();
 
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerViewOnClickListener(this, new RecyclerViewOnClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+                //start youtube player activity by passing selected video id via intent
+                //startActivity(new Intent(mainActivity, LiveYoutubeWebviewPlayer.class));
+                startActivity(new Intent(MainActivity.this, YoutubePlayerActivity.class)
+                        .putExtra("video_id", youtubeVideoModelArrayList.get(position).getVideoId())
+                        .putExtra("video_title", youtubeVideoModelArrayList.get(position).getTitle()));
+
+            }
+        }));
 
         //load more data
         fab.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                             nextToken = nextPageToken;
                             vAdapter.notifyDataSetChanged();
                             Toast.makeText(MainActivity.this, "New video added!", Toast.LENGTH_SHORT).show();
-                            fab.setVisibility(View.GONE);
+                            fab.hide();
                             mRecyclerView.scrollBy(0, 1000);
                         }
 
@@ -168,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadVideo() {
-
+        youtubeVideoModelArrayList=new ArrayList<>();
         if (!mSwipeRefreshLayout.isRefreshing())
             progressBar.setVisibility(View.VISIBLE);
 
@@ -182,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 //list is an ArrayList with all video's item
                 //set the adapter to recycler view
                 vAdapter = new VideoAdapter(list, R.layout.yt_row, MainActivity.this);
+                youtubeVideoModelArrayList =list;
                 mRecyclerView.setAdapter(vAdapter);
                 totalElement = vAdapter.getItemCount();
                 nextToken = nextPageToken;

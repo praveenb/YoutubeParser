@@ -84,7 +84,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         viewHolder.title.setText(currentVideo.getTitle());
         viewHolder.pubDate.setText(pubDateString);
 
-        Picasso.with(mContext)
+        Picasso.get()
                 .load(currentVideo.getCoverLink())
                 .placeholder(R.drawable.placeholder)
                 .fit().centerCrop()
