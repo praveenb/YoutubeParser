@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     //TODO: delete
     private final String API_KEY = "";
     private ArrayList<Video> youtubeVideoModelArrayList ;
-    //AIzaSyCTi9zsCNvdAJzsohhvXPJf_zA2Rep4NO4
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
