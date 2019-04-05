@@ -26,14 +26,16 @@ public class Video {
     private String videoId;
     private String coverLink;
     private String date;
+    private boolean isLive;
 
 
-    public Video(String title, String videoId, String coverLink, String date) {
+    public Video(String title, String videoId, String coverLink, String date, boolean islive) {
 
         this.title = title;
         this.videoId = videoId;
         this.coverLink = coverLink;
         this.date = date;
+        this.isLive = islive;
     }
 
     public String getTitle() {
@@ -68,13 +70,22 @@ public class Video {
         this.coverLink = coverLink;
     }
 
+    public boolean isLive() {
+        return isLive;
+    }
+
+    public void setLive(boolean live) {
+        isLive = live;
+    }
+
     @Override
     public String toString() {
-        return "Video { " +
-                "title= '" + title + '\'' +
-                ", videoId= '" + videoId + '\'' +
-                ", coverLink= '" + coverLink + '\'' +
-                ", date= '" + date + '\'' +
+        return "Video{" +
+                "title='" + title + '\'' +
+                ", videoId='" + videoId + '\'' +
+                ", coverLink='" + coverLink + '\'' +
+                ", date='" + date + '\'' +
+                ", isLive=" + isLive +
                 '}';
     }
 

@@ -1,19 +1,19 @@
 /*
-*   Copyright 2016 Marco Gomiero
-*
-*   Licensed under the Apache License, Version 2.0 (the "License");
-*   you may not use this file except in compliance with the License.
-*   You may obtain a copy of the License at
-*
-*       http://www.apache.org/licenses/LICENSE-2.0
-*
-*   Unless required by applicable law or agreed to in writing, software
-*   distributed under the License is distributed on an "AS IS" BASIS,
-*   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*   See the License for the specific language governing permissions and
-*   limitations under the License.
-*   
-*/
+ *   Copyright 2016 Marco Gomiero
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ *
+ */
 
 package com.prof.youtubeparser.example;
 
@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
     private String nextToken;
     private final String CHANNEL_ID = "UC_Htgf6HhijYNPbUck_GD-A";
     //TODO: delete
-    private final String API_KEY = "AIzaSyCTi9zsCNvdAJzsohhvXPJf_zA2Rep4NO4";
+    private final String API_KEY = "";
     private ArrayList<Video> youtubeVideoModelArrayList ;
-
+    //AIzaSyCTi9zsCNvdAJzsohhvXPJf_zA2Rep4NO4
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -193,9 +193,10 @@ public class MainActivity extends AppCompatActivity {
         parser.execute(url);
         parser.onFinish(new Parser.OnTaskCompleted() {
             @Override
-            public void onTaskCompleted(ArrayList<com.prof.youtubeparser.models.videos.Video> list, String nextPageToken) {
+            public void onTaskCompleted(ArrayList<Video> list, String nextPageToken) {
                 //list is an ArrayList with all video's item
                 //set the adapter to recycler view
+                sortLiveVideoAtFirst( list);
                 vAdapter = new VideoAdapter(list, R.layout.yt_row, MainActivity.this);
                 youtubeVideoModelArrayList =list;
                 mRecyclerView.setAdapter(vAdapter);
@@ -213,6 +214,20 @@ public class MainActivity extends AppCompatActivity {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+
+    private void sortLiveVideoAtFirst(ArrayList<Video> list){
+        Video liveVideo =null;
+        for(Video video:list){
+            if(video.isLive()){
+                liveVideo =video;
+            }
+        }
+        if(liveVideo!=null){
+            list.remove(liveVideo);
+            list.add(0,liveVideo);
+        }
     }
 
     @Override

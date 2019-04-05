@@ -17,6 +17,7 @@
 
 package com.prof.youtubeparser.example;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -69,6 +70,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         return new ViewHolder(v);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position)  {
 
@@ -82,7 +84,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         final String link = "https://www.youtube.com/watch?v=" + videoId;
 
         viewHolder.title.setText(currentVideo.getTitle());
-        viewHolder.pubDate.setText(pubDateString);
+        viewHolder.pubDate.setText(pubDateString + " Live "+currentVideo.isLive());
 
         Picasso.get()
                 .load(currentVideo.getCoverLink())
@@ -91,7 +93,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 .into(viewHolder.image);
 
         //show statistic of the selected video
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        /*viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 VideoStats videoStats = new VideoStats();
@@ -126,7 +128,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                     }
                 });
             }
-        });
+        });*/
 
         //open the video on Youtube
         viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
