@@ -26,6 +26,7 @@ import com.prof.youtubeparser.models.videos.High;
 import com.prof.youtubeparser.models.videos.Id;
 import com.prof.youtubeparser.models.videos.Item;
 import com.prof.youtubeparser.models.videos.Main;
+import com.prof.youtubeparser.models.videos.Medium;
 import com.prof.youtubeparser.models.videos.Snippet;
 import com.prof.youtubeparser.models.videos.Thumbnails;
 import com.prof.youtubeparser.models.videos.Video;
@@ -191,10 +192,12 @@ public class Parser extends AsyncTask<String, Void, String> {
                     Thumbnails image = snippet.getThumbnails();
 
                     High high = image.getHigh();
+                    Medium medium = image.getMedium();
 
                     String title = snippet.getTitle();
                     String videoId = id.getVideoId();
                     String imageLink = high.getUrl();
+                    String imageMedLink = medium.getUrl();
                     String sDate = snippet.getPublishedAt();
                     boolean isLive =false;
                     if(snippet.getLiveBroadcastContent()!=null)
@@ -211,7 +214,7 @@ public class Parser extends AsyncTask<String, Void, String> {
                     SimpleDateFormat sdf2 = new SimpleDateFormat("dd MMMM yyyy");
                     String pubDateString = sdf2.format(date);
 
-                    Video tempVideo = new Video(title, videoId, imageLink, pubDateString,isLive);
+                    Video tempVideo = new Video(title, videoId, imageLink,imageMedLink, pubDateString,isLive);
                     videos.add(tempVideo);
                 }
 

@@ -25,15 +25,17 @@ public class Video {
     private String title;
     private String videoId;
     private String coverLink;
+    private String coverMedLink;
     private String date;
     private boolean isLive;
 
 
-    public Video(String title, String videoId, String coverLink, String date, boolean islive) {
+    public Video(String title, String videoId, String coverLink,String coverMedLink, String date, boolean islive) {
 
         this.title = title;
         this.videoId = videoId;
         this.coverLink = coverLink;
+        this.coverMedLink = coverMedLink;
         this.date = date;
         this.isLive = islive;
     }
@@ -42,40 +44,29 @@ public class Video {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public String getVideoId() {
         return videoId;
     }
 
-    public void setVideoId(String videoId) {
-        this.videoId = videoId;
-    }
 
     public String getCoverLink() {
         return coverLink;
     }
 
-    public void setCoverLink(String coverLink) {
-        this.coverLink = coverLink;
-    }
 
     public boolean isLive() {
         return isLive;
     }
 
-    public void setLive(boolean live) {
-        isLive = live;
+
+    public String getCoverMedLink() {
+        return coverMedLink;
     }
 
     @Override
@@ -84,6 +75,7 @@ public class Video {
                 "title='" + title + '\'' +
                 ", videoId='" + videoId + '\'' +
                 ", coverLink='" + coverLink + '\'' +
+                ", coverMedLink='" + coverMedLink + '\'' +
                 ", date='" + date + '\'' +
                 ", isLive=" + isLive +
                 '}';

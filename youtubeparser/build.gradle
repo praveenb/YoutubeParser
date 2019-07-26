@@ -8,7 +8,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 7
-        versionName "2.6"
+        versionName "2.9"
     }
     buildTypes {
         release {
@@ -33,4 +33,4 @@ dependencies {
 
 
 group = 'com.prof.youtubeparserpb'
-version = '2.6'
+version = '2.9'
